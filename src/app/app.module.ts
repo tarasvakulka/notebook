@@ -1,18 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { RootComponent, SidebarComponent, NoteEditorComponent } from './components';
+import {RouterModule} from '@angular/router';
 
-import { AppComponent } from './app.component';
-
+const routes = [
+    {path: ':uuid', component: NoteEditorComponent}
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    RootComponent,
+    SidebarComponent,
+    NoteEditorComponent
   ],
   imports: [
-    BrowserModule
+      BrowserModule,
+      RouterModule.forRoot(routes)
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule { }
