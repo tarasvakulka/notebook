@@ -2,6 +2,6 @@ export interface NoteInterface {
     id: string;
     name: string;
     description: string;
-    keyword: string[];
+    keywords: string[];
     data: string;
 }
