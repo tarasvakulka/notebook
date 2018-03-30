@@ -8,12 +8,18 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
-  notes: Observable<NoteInterface[]>;
+    notes: NoteInterface[] = [];
 
-  constructor(private notesService: NotesService) {
-  }
+    constructor(private notesService: NotesService) {
+    }
 
+    ngOnInit(): void {
+        this.notesService.notesDataObservable$
+            .subscribe((notes: NoteInterface[]) => {
+                this.notes = notes;
+            });
+    }
 }
 

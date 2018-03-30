@@ -23,8 +23,8 @@ export class NotesService {
                 const newNotes = notes.map(note => {
                   note.id = uuid();
                   return note;
-                })
-                this.notesData$.next(notes);
+                });
+                this.notesData$.next(newNotes);
             });
     }
 
