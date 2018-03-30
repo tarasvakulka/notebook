@@ -1,7 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Subject } from 'rxjs/Subject';
+import { v4 as uuid } from 'uuid';
 
 import { NoteInterface } from '../interfaces';
 
@@ -10,10 +11,25 @@ export class NotesService {
 
     notesUrl: string = 'https://demo0707651.mockable.io/fake_json';
 
+    notesData$: Subject<NoteInterface[]> = new Subject<NoteInterface[]>();
+
+    notesData: NoteInterface[] = [];
+
     constructor(private http: HttpClient) { }
 
-    getNotes(): Observable<NoteInterface[]> {
-        return this.http.get<NoteInterface[]>(this.notesUrl);
+    loadNotes(): any {
+        return this.http.get<NoteInterface[]>(this.notesUrl)
+            .subscribe((notes: NoteInterface[]) => {
+                const newNotes = notes.map(note => {
+                  note.id = uuid();
+                  return note;
+                })
+                this.notesData$.next(notes);
+            });
+    }
+
+    get notesDataObservable$(): Observable<any> {
+        return this.notesData$.asObservable();
     }
 
 }

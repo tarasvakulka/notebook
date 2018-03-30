@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NoteInterface } from '../../interfaces';
 import { NotesService } from '../../services';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-note-editor',
@@ -15,10 +16,11 @@ export class NoteEditorComponent implements OnInit {
   constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
-      this.notesService.getNotes().subscribe((notes: NoteInterface[]) => {
-          this.notes = notes;
-          console.log(notes);
-      });
+      this.notesService.notesDataObservable$
+          .subscribe((notes: NoteInterface[]) => {
+            debugger;
+            this.notes = notes;
+          });
   }
 
 }
