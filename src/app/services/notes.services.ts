@@ -9,7 +9,7 @@ import { NoteInterface } from '../interfaces';
 @Injectable()
 export class NotesService {
 
-    notesUrl: string = 'https://demo0707651.mockable.io/fake_json';
+    notesUrl: string = 'http://5abe4b7bd4c5900014949eaf.mockapi.io/note';
 
     notesData$: Subject<NoteInterface[]> = new Subject<NoteInterface[]>();
 
@@ -24,12 +24,19 @@ export class NotesService {
                   note.id = uuid();
                   return note;
                 });
+                this.notesData = newNotes;
                 this.notesData$.next(newNotes);
             });
     }
 
     get notesDataObservable$(): Observable<any> {
         return this.notesData$.asObservable();
+    }
+
+    addNote(note: NoteInterface) {
+        this.notesData.push(note);
+        this.notesData$.next(this.notesData);
+        this.http.post(this.notesUrl, this.notesData);
     }
 
 }

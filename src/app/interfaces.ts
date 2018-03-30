@@ -3,5 +3,5 @@ export interface NoteInterface {
     name: string;
     description: string;
     keywords: string[];
-    data: string;
+    date: string;
 }

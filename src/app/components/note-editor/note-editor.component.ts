@@ -5,6 +5,7 @@ import { NotesService } from '../../services';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router, NavigationStart, Event, NavigationEnd} from '@angular/router';
+import { v4 as uuid } from 'uuid';
 
 @Component({
     selector: 'app-note-editor',
@@ -41,6 +42,19 @@ export class NoteEditorComponent implements OnInit {
         });
     }
 
+    handlerSaveNote() {
+        if (this.id === 'new') {
+            this.notesService.addNote(this.getFormData());
+            this.notesForm.setValue({
+                noteName: '',
+                noteDescription: '',
+                noteKeywords: '',
+                noteDate: ''
+            });
+            /*this.notesService.loadNotes();*/
+        }
+    }
+
     private initForm(): void {
         this.notesForm = this.fb.group({
             noteName: '' ,
@@ -59,18 +73,35 @@ export class NoteEditorComponent implements OnInit {
                 noteDate: ''
             });
         } else {
-           this.currentNote = this.notes.find((note: NoteInterface) => note.id === this.id);
-           this.notesForm.setValue({
-               noteName: this.currentNote.name,
-               noteDescription: this.currentNote.description,
-               noteKeywords: this.mapKeyWords(this.currentNote.keywords),
-               noteDate: ''
-           });
+            this.currentNote = this.notes.find((note: NoteInterface) => note.id === this.id);
+            this.notesForm.setValue({
+                noteName: this.currentNote.name,
+                noteDescription: this.currentNote.description,
+                noteKeywords: this.mapKeyWords(this.currentNote.keywords),
+                noteDate: this.currentNote.date
+            });
         }
     }
 
     private mapKeyWords(keyWords) {
-        return keyWords.join(',');
+        return keyWords.join(', ');
+    }
+
+    private currentDate() {
+        const currentDate = new Date();
+        return currentDate.toISOString().substring(0,10);
+    }
+
+    private getFormData() {
+        let noteKeyWords = this.notesForm.get('noteKeywords').value.split(',');
+        let noteDate = this.notesForm.get('noteDate').value;
+        return {
+            id : uuid(),
+            name: this.notesForm.get('noteName').value,
+            description: this.notesForm.get('noteDescription').value,
+            keywords: noteKeyWords,
+            date: this.currentDate()
+        }
     }
 
 }
