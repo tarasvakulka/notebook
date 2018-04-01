@@ -36,7 +36,51 @@ export class NotesService {
     addNote(note: NoteInterface) {
         this.notesData.push(note);
         this.notesData$.next(this.notesData);
-        this.http.post(this.notesUrl, this.notesData);
+    }
+
+    editNote(noteData: NoteInterface, noteId: string) {
+        let editedNotes: NoteInterface[] = this.notesData.map((note: NoteInterface) => {
+            if(note.id === noteId) {
+                Object.assign(note, noteData);
+                return note;
+            } else {
+                return note;
+            }
+        });
+        this.notesData$.next(editedNotes);
+    }
+
+    deleteNote(noteId: string) {
+        let deleteIndex: number;
+        for(let i: number = 0; i < this.notesData.length; i++) {
+            if(this.notesData[i].id === noteId) {
+                deleteIndex = i;
+            }
+        }
+        this.notesData.splice(deleteIndex, 1);
+        this.notesData$.next(this.notesData);
+
+    }
+
+    searchNote(searchData) {
+        let keyWords: string = searchData.split(', ');
+        let searchNotes: NoteInterface[] = this.notesData.filter((note: NoteInterface) => {
+            let isNoteKeyWord: boolean = false;
+            for (let i: number = 0; i< keyWords.length; i++) {
+                if(note.keywords.indexOf(keyWords[i]) !== -1) {
+                    isNoteKeyWord = true;
+                } else {
+                    isNoteKeyWord = false;
+                }
+            }
+            if(isNoteKeyWord) return true;
+        });
+        if (searchNotes.length) {
+            this.notesData$.next(searchNotes);
+        }
+        else {
+            this.notesData$.next(this.notesData);
+        }
     }
 
 }

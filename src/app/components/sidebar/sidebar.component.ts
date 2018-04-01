@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NotesService} from '../../services';
 import {NoteInterface} from '../../interfaces';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-sidebar',

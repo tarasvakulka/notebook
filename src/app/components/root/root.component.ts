@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NotesService} from '../../services';
-import {NoteInterface} from '../../interfaces';
 import {Router} from '@angular/router';
 
 @Component({
@@ -9,7 +8,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./root.component.scss']
 })
 export class RootComponent implements OnInit {
-  title = 'app';
 
   constructor(private notesService: NotesService, private router: Router) { }
 
@@ -17,6 +15,5 @@ export class RootComponent implements OnInit {
     this.notesService.loadNotes();
     this.router.navigate(["/new"]);
   }
-
 
 }
