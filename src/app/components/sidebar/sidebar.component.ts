@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NotesService} from '../../services';
-import {NoteInterface} from '../../interfaces';
+import { Component, OnInit } from '@angular/core';
+import { NotesService} from '../../services';
+import { NoteInterface } from '../../interfaces';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,5 +20,5 @@ export class SidebarComponent implements OnInit {
                 this.notes = notes;
             });
     }
-}
 
+}

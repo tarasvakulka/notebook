@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { v4 as uuid } from 'uuid';
+
 import { NoteInterface } from '../../interfaces';
 import { NotesService } from '../../services';
-import {ActivatedRoute, Router} from '@angular/router';
-import { v4 as uuid } from 'uuid';
 
 @Component({
     selector: 'app-note-editor',
     templateUrl: './note-editor.component.html',
     styleUrls: ['./note-editor.component.scss']
 })
+
 export class NoteEditorComponent implements OnInit {
 
     public notesForm: FormGroup;

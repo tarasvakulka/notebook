@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {NotesService} from '../../services';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { NotesService } from '../../services';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class RootComponent implements OnInit {
 
   ngOnInit(): void {
     this.notesService.loadNotes();
-    this.router.navigate(["/new"]);
+    this.router.navigate(['/new']);
   }
 
 }

@@ -1,5 +1,5 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { v4 as uuid } from 'uuid';
