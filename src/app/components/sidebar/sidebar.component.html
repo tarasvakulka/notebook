@@ -1,1 +1,10 @@
-Sidebar
+<div>
+  <a class="btn btn-block btn-primary" routerLink="/new">ADD NEW NOTE</a>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action"
+        *ngFor="let item of notes"
+    >
+      <a [routerLink]="[item.id]" class="nav-link">{{item.name}}</a>
+    </li>
+  </ul>
+</div>

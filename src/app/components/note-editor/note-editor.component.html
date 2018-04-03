@@ -1,32 +1,46 @@
-  <form action="">
-    <div class="form-group row">
-      <div class="col-12">
-        <input type="text" class="form-control" placeholder="Note 1">
+  <form [formGroup]="notesForm">
+    <div class="form-group">
+      <div class="row justify-content-end">
+        <div class="col-5">
+          <label>Search</label>
+          <input (input)="handlerSearch()" type="text" class="form-control" placeholder="Type keywords separated by ," formControlName="searchField">
+        </div>
       </div>
     </div>
-    <div class="form-group row">
-      <div class="col-12">
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label>Name</label>
+          <input type="text" [value]="notesForm.get('noteName').value" class="form-control" placeholder="Type name for your note" formControlName="noteName">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label>Description</label>
+          <textarea class="form-control" placeholder="Type description" aria-label="With textarea" formControlName="noteDescription"></textarea>
+        </div>
       </div>
     </div>
     <div class="form-group">
       <div class="row">
         <div class="col-6">
-          <input type="text" class="form-control" placeholder="keyword1, keyword2 ...">
+          <label>Key Words</label>
+          <input type="text" class="form-control" placeholder="keyword1, keyword2 ..." formControlName="noteKeywords">
         </div>
         <div class="col-6">
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>01/12/2018</option>
-            <option>01/12/2018</option>
-            <option>01/12/2018</option>
-            <option>01/12/2018</option>
-            <option>01/12/2018</option>
-          </select>
+          <label>Date</label>
+          <input type="date" class="form-control" formControlName="noteDate">
         </div>
       </div>
     </div>
     <div class="row justify-content-end">
-      <button class="btn bnt-primary mr-2">Save</button>
-      <button class="btn bnt-primary">Delete</button>
+      <div class="col-3">
+        <button class="btn btn-block btn-primary" (click)="handlerSaveNote()">Save</button>
+      </div>
+      <div class="col-3">
+        <button class="btn btn-block btn-primary" (click)="handlerDeleteNote()">Delete</button>
+      </div>
     </div>
   </form>
